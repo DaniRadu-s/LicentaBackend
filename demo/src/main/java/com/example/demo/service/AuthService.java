@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.dto.ResetPasswordRequest;
 import com.example.demo.domain.dto.SignUpRequest;
 import com.example.demo.domain.dto.SignUpResponse;
 import com.example.demo.domain.entity.ResetToken;
@@ -10,7 +9,6 @@ import com.example.demo.persistence.TokenRepository;
 import com.example.demo.persistence.UserRepository;
 import org.springframework.mail.SimpleMailMessage;
 import com.example.demo.security.JwtUtil;
-import org.apache.coyote.BadRequestException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
