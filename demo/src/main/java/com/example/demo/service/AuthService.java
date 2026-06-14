@@ -49,16 +49,20 @@ public class AuthService {
     }
 
     public void createForgotPasswordRequest(String email){
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
         String token = UUID.randomUUID().toString();
-        ResetToken resetToken = new ResetToken();
+
+        ResetToken resetToken = tokenRepository.findByUser(user)
+                .orElseGet(ResetToken::new);
 
         resetToken.setToken(token);
         resetToken.setUser(user);
         resetToken.setExpirationDate(LocalDateTime.now().plusMinutes(15));
 
         tokenRepository.save(resetToken);
-        sendEmail(user.getEmail(),token);
+        sendEmail(user.getEmail(), token);
     }
 
     public void resetPassword(String token, String newPassword) {
